@@ -6,19 +6,20 @@ https://github.com/mpx/lua-cjson/pull/25
 
 ## 编译安装redis
 ```
-mkdir -p /usr/env
-cd /usr/env
+prefix=/usr/env
+mkdir -p $prefix
+cd $prefix
 wget https://github.com/antirez/redis/archive/5.0.3.tar.gz
 tar xvf 5.0.3.tar.gz
 
 # 替换修改之后的 lua_cjson.c
 wget https://raw.githubusercontent.com/xiyuan-fengyu/redis-lua-cjson-empty-table-fix/master/lua_cjson.c
-yes | cp -rf lua_cjson.c /usr/env/redis-5.0.3/deps/lua/src/lua_cjson.c
+yes | cp -rf lua_cjson.c $prefix/redis-5.0.3/deps/lua/src/lua_cjson.c
 
 # 编译
-cd /usr/env/redis-5.0.3/deps
+cd $prefix/redis-5.0.3/deps
 make hiredis jemalloc linenoise lua
-cd /usr/env/redis-5.0.3
+cd $prefix/redis-5.0.3
 make
 make install
 
@@ -30,7 +31,7 @@ sed -i 's/^# requirepass .*/requirepass 123456/g' /etc/redis.conf
 sed -i 's/^#  notify-keyspace-events Ex/notify-keyspace-events Ex/g' /etc/redis.conf  
 
 # 准备启动程序
-yes | cp -rf /usr/env/redis-5.0.3/utils/redis_init_script /etc/init.d/redis
+yes | cp -rf $prefix/redis-5.0.3/utils/redis_init_script /etc/init.d/redis
 sed -i '2s/#/# chkconfig: 2345 90 10/' /etc/init.d/redis 
 
 # 设置开机启动
