@@ -1,5 +1,5 @@
 # redis-lua-cjson-empty-table-fix
-修复 lua_cjson 中无法将 empty table 解析为 "[]" 的问题  
+修复 redis lua_cjson 中无法将 empty table 解析为 "[]" 的问题  
 
 ## 参考  
 https://github.com/mpx/lua-cjson/pull/25  
